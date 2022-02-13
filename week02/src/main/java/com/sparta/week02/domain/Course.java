@@ -24,16 +24,7 @@ public class Course extends Timestamped{
         this.title=requestDto.getTitle();
         this.tutor=requestDto.getTutor();
     }
-//    public String getTitle() {
-//        return this.title;
-//    }
-//
-//    public String getTutor() {
-//        return this.tutor;
-//    }
-//    public Long getId() {
-//        return this.id;
-//    }
+
 
     public Course(String title, String tutor) {
         this.title = title;
@@ -44,6 +35,15 @@ public class Course extends Timestamped{
         this.title = requestDto.getTitle();
         this.tutor = requestDto.getTutor();
     }
-
+//    public String getTitle() {
+//        return this.title;
+//    }
+//
+//    public String getTutor() {
+//        return this.tutor;
+//    }
+//    public Long getId() {
+//        return this.id;
+//    }
 
 }

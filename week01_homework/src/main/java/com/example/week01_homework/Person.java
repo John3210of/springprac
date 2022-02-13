@@ -1,37 +1,44 @@
 package com.example.week01_homework;
 
-public class Person {
+import lombok.Generated;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Getter
+@NoArgsConstructor
+@Entity
+public class Person extends Timestamped{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String job;
-    private int ages;
+    @Column(nullable = false)
+    private int age;
 
-    public Person() {
-
-    }
-
-    public Person(String name, String job, int ages) {
-        this.name = name;
-        this.job = job;
-        this.ages = ages;
+    public Person(PersonRequestDto requestDto){
+        this.name=requestDto.getName();
+        this.job=requestDto.getJob();
+        this.age=requestDto.getAge();
     }
 
-    public String getName() {
-        return this.name;
+    public Person(String name, String job,int age){
+        this.name=name;
+        this.job=job;
+        this.age=age;
     }
-    public String getJob() {
-        return this.job;
-    }
-    public int getAges() {
-        return this.ages;
-    }       //얘네가 없으면 못불러오넹 신기하다
 
-    public void setName(String name) {
-        this.name = name;
+    public void update(PersonRequestDto requestDto){
+        this.name=requestDto.getName();
+        this.job=requestDto.getJob();
+        this.age=requestDto.getAge();
     }
-    public void setJob(String job) {
-        this.job = job;
-    }
-    public void setAges(int ages) {
-        this.ages = ages;
-    }
+
 }
