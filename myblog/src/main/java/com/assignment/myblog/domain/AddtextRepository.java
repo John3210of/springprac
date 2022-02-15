@@ -1,0 +1,10 @@
+package com.assignment.myblog.domain;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface AddtextRepository extends JpaRepository<Addtext, Long> {
+
+    List<Addtext> findAllByOrderByModifiedAtDesc();
+}
