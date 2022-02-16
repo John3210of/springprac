@@ -9,4 +9,10 @@ public interface AddtextRepository extends JpaRepository<Addtext, Long> {
 //    List<Addtext> findAllByOrderByModifiedAtDesc();
 
     List<Addtext> findAllByPostid(Long postid); //이렇게만 해도 알아서 시간내림차순으로 되는듯?
+
+    void deleteByPostid(Long id); //????????????? ㅁ?ㄹ
+
+//    void deleteByPostid(Long postid);
+
+
 }

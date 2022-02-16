@@ -4,6 +4,8 @@ import com.assignment.myblog.domain.*;
 import com.assignment.myblog.service.AddtextService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,7 +17,7 @@ public class AddtextController {
 
 
     @PostMapping("/api/addtext")   //7. 댓글작성 , 비웠을때 예외처리 해야함
-    public Addtext createAddtext(@RequestBody AddtextRequestDto requestDto) {
+    public Addtext createAddtext( @RequestBody @Valid AddtextRequestDto requestDto) {
         Addtext addtext = new Addtext(requestDto);
         return addtextRepository.save(addtext);
     }
@@ -28,7 +30,6 @@ public class AddtextController {
 
     @GetMapping("/api/addtext/postNum/{postid}") //6.원하는 게시글 댓글 목록 조회.
     public List<Addtext> getAddtext(@PathVariable Long postid) {
-
         return addtextRepository.findAllByPostid(postid);
     }
 
@@ -39,7 +40,7 @@ public class AddtextController {
     }
 
     @PutMapping("/api/addtext/{id}")   //8.댓글수정 , 비웠을때 예외처리 해야함
-    public Long updateAddtext(@PathVariable Long id, @RequestBody AddtextRequestDto requestDto) {
+    public Long updateAddtext(@PathVariable Long id, @RequestBody @Valid AddtextRequestDto requestDto) {
         addtextService.modify(id, requestDto);
         return id;
     }
