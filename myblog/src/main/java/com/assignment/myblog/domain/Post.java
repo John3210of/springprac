@@ -1,6 +1,6 @@
 package com.assignment.myblog.domain;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +23,9 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
     private String postname;
 
     @Column(nullable = false)   //글내용
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String contents;
+
 //일대다매핑
 //    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 //    private List<Addtext> addtext = new ArrayList<Addtext>();

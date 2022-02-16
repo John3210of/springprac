@@ -7,31 +7,25 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class ExceptionController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> methodValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> methodValidException(MethodArgumentNotValidException e) {
         ErrorResponse errorResponse = makeErrorResponse(e.getBindingResult());
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }   // ????????????? ㅁ?ㄹ
 
     private ErrorResponse makeErrorResponse(BindingResult bindingResult) {
-        String description = "error";
+        String description = "";
         String detail = "";
 
         //에러가 있다면
         if (bindingResult.hasErrors()) {
-            //DTO에 설정한 meaasge값을 가져온다
+            //DTO에 설정한 message값을 가져온다
             detail = bindingResult.getFieldError().getDefaultMessage();
+            description = ErrorCode.NOT_EMPTY.getDescription();
 
-            //DTO에 유효성체크를 걸어놓은 어노테이션명을 가져온다.
-            String bindResultCode = bindingResult.getFieldError().getCode();
-
-            if (bindResultCode == "NotEmpty") {
-                description = ErrorCode.NOT_EMPTY.getDescription();
-            }
         }
 
         return new ErrorResponse(description, detail);

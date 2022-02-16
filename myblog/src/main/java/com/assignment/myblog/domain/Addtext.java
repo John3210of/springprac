@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor // 기본생성자를 만듭니다.
 @Getter
@@ -22,7 +21,6 @@ public class Addtext extends Timestamped { // 생성,수정 시간을 자동으�
     private String username;
 
     @Column
-    @NotEmpty(message = "댓글 내용을 입력해주세요")
     private String contents;
 
 

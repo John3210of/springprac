@@ -9,6 +9,6 @@ public class AddtextRequestDto {
     private Long postid;
     private String username;
 
-    @NotEmpty(message = "내용을 입력해 주세요")
+    @NotEmpty(message = "공백은 불가능 합니다")
     private String contents;
 }
