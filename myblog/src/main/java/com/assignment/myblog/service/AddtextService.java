@@ -12,6 +12,7 @@ import java.util.Optional;
 public class AddtextService {
 
     private final AddtextRepository addtextRepository;
+    private final PostRepository postRepository;
 
 
     @Transactional  //db에 반영이 되야한다를 알려주는것
@@ -22,4 +23,14 @@ public class AddtextService {
         addtext.modify(requestDto);
         return addtext.getId();
     }
+
+//    @Transactional
+//    public Addtext getAddtext(Long postId, AddtextRequestDto requestDto) {
+//        Optional<Post> byId = Optional.ofNullable(postRepository.findById(postId))
+//                .orElseThrow(NullPointerException::new);
+//        Addtext addtext = new Addtext(requestDto);
+//        byId.get().addAddtext(addtext);
+//        return addtext;
+//    }
+
 }

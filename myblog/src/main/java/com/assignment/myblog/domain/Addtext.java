@@ -11,8 +11,11 @@ import javax.persistence.*;
 public class Addtext extends Timestamped { // 생성,수정 시간을 자동으로 만들어줍니다.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name="addtext_id")
+    @Column
     private Long id;
+
+    @Column(nullable = false)
+    private Long postid;
 
     @Column(nullable = false)
     private String username;
@@ -21,7 +24,18 @@ public class Addtext extends Timestamped { // 생성,수정 시간을 자동으�
     private String contents;
 
 
+//일대다매핑
+//    @ManyToOne
+//    @JoinColumn(name="post_id")
+//    private Post post;
+//
+//    public void setPost(Post post){
+//        this.post = post;
+//    }
+
+
     public Addtext(AddtextRequestDto requestDto) {
+        this.postid = requestDto.getPostid();
         this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();
     }
@@ -30,6 +44,5 @@ public class Addtext extends Timestamped { // 생성,수정 시간을 자동으�
         this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();
     }
-
 
 }
