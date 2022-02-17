@@ -1,11 +1,11 @@
 package com.assignment.myblog.domain;
 
 import lombok.Getter;
-
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 public class AddtextRequestDto {
+
     private Long postid;
     private String username;
 

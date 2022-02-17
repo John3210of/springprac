@@ -1,18 +1,20 @@
 package com.assignment.myblog.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface AddtextRepository extends JpaRepository<Addtext, Long> {
 
-//    List<Addtext> findAllByOrderByModifiedAtDesc();
+    @Transactional
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Query("DELETE FROM Addtext c WHERE c.postid = ?1")
+    void deleteAddtextByPostId(Long query);
 
-    List<Addtext> findAllByPostid(Long postid); //이렇게만 해도 알아서 시간내림차순으로 되는듯?
-
-    void deleteByPostid(Long id); //????????????? ㅁ?ㄹ
-
-//    void deleteByPostid(Long postid);
+    List<Addtext> findAllByPostid(Long postid);
 
 
 }

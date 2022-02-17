@@ -1,12 +1,8 @@
 package com.assignment.myblog.controller;
 
-import com.assignment.myblog.domain.Post;
-import com.assignment.myblog.domain.PostRepository;
-import com.assignment.myblog.domain.PostRequestDto;
+import com.assignment.myblog.domain.*;
 import com.assignment.myblog.service.PostService;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +14,12 @@ public class PostController {
 
     private final PostRepository postRepository;
     private final PostService postService;
+    private final AddtextRepository addtextRepository;
+
 
     @GetMapping("/api/posts")   //1.전체 게시글 목록 조회 여기선 contents 안보이게 해야됨
-    public List<Post> getPosts() {
-
-        return postRepository.findAllByOrderByModifiedAtDesc();
+    public List<PostsMapping> getPosts() {
+        return postRepository.findAllabcd();
     }
 
     @PostMapping("/api/posts")  //2.게시글 작성
@@ -46,9 +43,8 @@ public class PostController {
     @DeleteMapping("/api/posts/{id}")   //5.게시글 삭제 댓글도 같이 날려야하는데
     public Long deletePost(@PathVariable Long id) {
         postRepository.deleteById(id);
-//        addtextRepository.deleteByPostid(id);
+        addtextRepository.deleteAddtextByPostId(id);
         return id;
     }
-
 
 }

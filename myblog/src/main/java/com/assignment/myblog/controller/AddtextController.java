@@ -38,11 +38,10 @@ public class AddtextController {
         return id;
     }
 
+}
+
 //    @PostMapping("/api/addtext/{postId}") 일대다매핑
 //    public Addtext createAddtext(@PathVariable Long postId, @RequestBody AddtextRequestDto requestDto) {
 //        Addtext addtext = addtextService.getAddtext(postId, requestDto);
 //        return addtextRepository.save(addtext);
 //    }
-
-
-}

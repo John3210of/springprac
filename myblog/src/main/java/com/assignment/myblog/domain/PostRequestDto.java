@@ -1,6 +1,5 @@
 package com.assignment.myblog.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter

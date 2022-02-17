@@ -5,14 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @RequiredArgsConstructor    //생성자 자동으로 넣어줘
 @Service
 public class AddtextService {
 
     private final AddtextRepository addtextRepository;
-    private final PostRepository postRepository;
 
 
     @Transactional  //db에 반영이 되야한다를 알려주는것
