@@ -31,9 +31,10 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String passwordCheck;
 
-    @JsonBackReference  //순환참조 방지. 자식 클래스
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Board> boards;
+//    @JsonBackReference  //순환참조 방지. 자식 클래스
+//    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//    private List<Board> boards;
+
 
     public User(SignupRequestDto signupRequestDto) {
         this.username = signupRequestDto.getUsername();

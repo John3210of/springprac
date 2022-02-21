@@ -1,7 +1,9 @@
 package com.yohan.spring1.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.yohan.spring1.dto.BoardEditDto;
 import com.yohan.spring1.dto.BoardRequestDto;
+import com.yohan.spring1.dto.BoardResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,15 +31,21 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "userid")
-    @JsonManagedReference       //순환참조방지. 부모클래스
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "userid")
+//    @JsonManagedReference       //순환참조방지. 부모클래스
+//    private User user;
 
     public Board(BoardRequestDto boardrequestDto){
         this.username = boardrequestDto.getUsername();
         this.grid = boardrequestDto.getGrid();
         this.imageUrl = boardrequestDto.getImageUrl();
         this.content = boardrequestDto.getContent();
+    }
+
+    public void update(BoardEditDto boardEditDto){
+        this.imageUrl=boardEditDto.getImageUrl();
+        this.grid=boardEditDto.getGrid();
+        this.content=boardEditDto.getContent();
     }
 }

@@ -19,7 +19,7 @@ public class UserService {
 //    }
 
     @Transactional
-    public String Signup(Long id, SignupRequestDto signupRequestDto){
+    public String Signup(SignupRequestDto signupRequestDto){
         User user = new User(signupRequestDto);
         userRepository.save(user);
         return "회원가입 완료";
