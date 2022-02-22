@@ -1,7 +1,8 @@
-//package com.yohan.spring1.security;
+//package com.sparta.juteukki02.juteukki_week02.security;
 //
-//import com.yohan.spring1.model.User;
-//import com.yohan.spring1.repository.UserRepository;
+//import com.sparta.juteukki02.juteukki_week02.model.User;
+//import com.sparta.juteukki02.juteukki_week02.model.UserRepository;
+//import org.json.JSONObject;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,7 @@
 //    }
 //
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//
 //        User user = userRepository.findByUsername(username)
 //                .orElseThrow(() -> new UsernameNotFoundException("Can't find " + username));
 //

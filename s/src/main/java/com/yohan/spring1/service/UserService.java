@@ -36,7 +36,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(SignupRequestDto requestDto) {
+    public String Signup(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
         // 패스워드 암호화
         String password = passwordEncoder.encode(requestDto.getPassword());
@@ -52,6 +52,8 @@ public class UserService {
 
         User user = new User(username, password, passwordCheck,email);
         userRepository.save(user);  //DB에 저장하는 부분
+
+        return "회원가입 완료";
     }
 
 }

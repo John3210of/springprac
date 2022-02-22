@@ -1,14 +1,12 @@
-//package com.yohan.spring1.security;
+//package com.sparta.juteukki02.juteukki_week02.security;
 //
-//
-//import com.yohan.spring1.model.User;
+//import com.sparta.juteukki02.juteukki_week02.model.User;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 //
 //import java.util.Collection;
 //import java.util.Collections;
 //
-////@AuthenticationPrincipal UserDetailsImpl userDetails
 //public class UserDetailsImpl implements UserDetails {
 //
 //    private final User user;

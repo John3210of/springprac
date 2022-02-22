@@ -48,13 +48,11 @@ public class BoardController {
     @GetMapping("/api/board/detail/{id}")
     public BoardResponseDto Showdetails(@PathVariable Long id){
         return boardService.brdDetail(id);
-
     }
 
     @PutMapping("/api/board/{id}")  //글 수정하기
     public String updateBoard(@PathVariable Long id,@RequestBody BoardEditDto boardEditDto){
         boardService.update(id,boardEditDto);
-
         return "수정 완료";
     }
 

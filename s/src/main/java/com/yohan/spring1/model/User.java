@@ -36,6 +36,10 @@ public class User extends Timestamped {
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Board> boardList = new ArrayList<>();
 
+    @JsonBackReference  //순환참조 방지. 자식 클래스   //mappedby => 관계의 주인은 이쪽이 아니다.
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Likes> LikeList = new ArrayList<>();
+
 
     public User(SignupRequestDto signupRequestDto) {
         this.username = signupRequestDto.getUsername();
