@@ -2,6 +2,7 @@ package com.yohan.spring1.service;
 
 import com.yohan.spring1.dto.BoardEditDto;
 import com.yohan.spring1.dto.BoardRequestDto;
+import com.yohan.spring1.dto.BoardResponseDto;
 import com.yohan.spring1.model.Board;
 import com.yohan.spring1.model.User;
 import com.yohan.spring1.repository.BoardRepository;
@@ -22,9 +23,9 @@ public class BoardService {
 //    public String Create(BoardRequestDto boardRequestDto){
 //        Board board = new Board(boardRequestDto);
 //        boardRepository.save(board);
-//        //요기부터 새로작성
 //        return "글작성 완료";
 //    }
+//  요기부터 새로작성
 
     //연관관계 매핑 관련
     @Transactional
@@ -33,7 +34,16 @@ public class BoardService {
         Board board = new Board(boardRequestDto);
         board.setUser(user);
         boardRepository.save(board);
-        return "글작 성 완 1 료";
+        return "글작성 완료";
+    }
+
+    @Transactional
+    public BoardResponseDto brdDetail(Long id){
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
+        );
+        BoardResponseDto boardResponseDto = new BoardResponseDto(board);
+        return boardResponseDto;
     }
 
     @Transactional

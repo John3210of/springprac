@@ -42,9 +42,13 @@ public class BoardController {
     @GetMapping("/api/board/{id}")  //글 상세 페이지
     public Optional<Board> Showdetail(@PathVariable Long id){
         Optional<Board> board = boardRepository.findById(id);
-        Optional<Board> boardResponseDto = board;
+        return board;
+    }
 
-        return boardResponseDto;
+    @GetMapping("/api/board/detail/{id}")
+    public BoardResponseDto Showdetails(@PathVariable Long id){
+        return boardService.brdDetail(id);
+
     }
 
     @PutMapping("/api/board/{id}")  //글 수정하기

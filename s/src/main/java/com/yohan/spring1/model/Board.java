@@ -24,11 +24,14 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String imageUrl;
 
-    @Column(nullable = false)   //글내용
+    @Column(nullable = false)
     private String content;
 
     @Column(nullable = false)
     private String username;
+
+    @Column
+    private int likeCount;
 
     @ManyToOne
     @JoinColumn(name = "userid",nullable = false)
@@ -36,6 +39,9 @@ public class Board extends Timestamped {
     private User user;
 
     public void setUser(User user){
+        if (this.user != null) { // 기존에 이미 팀이 존재한다면
+            this.user.getBoardList().remove(this); // 관계를 끊는다.
+        }
         this.user = user;
         user.getBoardList().add(this);
     }

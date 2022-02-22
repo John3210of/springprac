@@ -15,6 +15,7 @@ public class BoardResponseDto {
     private String content;
     private LocalDateTime createdAt;
     private String creater;
+    private int likeCount;
 
     // 전체 글 조회
     public BoardResponseDto(Board board) {
@@ -24,5 +25,6 @@ public class BoardResponseDto {
         this.content = board.getContent();
         this.createdAt = board.getCreatedAt();
         this.creater=board.getUsername();
+        this.likeCount=3;
     }
 }
