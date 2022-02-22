@@ -28,7 +28,7 @@ public class BoardService {
 //  요기부터 새로작성
 
     //연관관계 매핑 관련
-    @Transactional
+    @Transactional  //글작성
     public String Save1(BoardRequestDto boardRequestDto){
         User user = userRepository.findUserByUsername(boardRequestDto.getUsername());
         Board board = new Board(boardRequestDto);
@@ -37,7 +37,7 @@ public class BoardService {
         return "글작성 완료";
     }
 
-    @Transactional
+    @Transactional  //상세페이지
     public BoardResponseDto brdDetail(Long id){
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
@@ -46,7 +46,7 @@ public class BoardService {
         return boardResponseDto;
     }
 
-    @Transactional
+    @Transactional  //글 수정
     public Long update(Long id, BoardEditDto boardEditDto) {
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
@@ -55,7 +55,7 @@ public class BoardService {
         return board.getId();
     }
 
-    @Transactional
+    @Transactional  //글 삭제
     public Long delete(Long id){
         boardRepository.deleteById(id);
         return id;

@@ -42,6 +42,13 @@ public class User extends Timestamped {
         this.password = signupRequestDto.getPassword();
         this.passwordCheck = signupRequestDto.getPasswordCheck();
         this.email = signupRequestDto.getEmail();
+    }
+
+    public User(String username, String password,String passwordCheck, String email) {
+        this.username = username;
+        this.password = password;
+        this.passwordCheck = passwordCheck;
+        this.email = email;
 
     }
 }
