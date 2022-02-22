@@ -1,28 +1,28 @@
 package com.yohan.spring1.dto;
 
 import com.yohan.spring1.model.Board;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Getter
-@NoArgsConstructor
-public class BoardResponseDto {
+public class BoardDetailResponseDto {
     private Long id;
     private String imageUrl;
     private String grid;
     private String content;
     private LocalDateTime createdAt;
     private String creater;
+    private int likeCount;
+
+    //likeCount 세는 로직 ㄱ
 
     // 전체 글 조회
-    public BoardResponseDto(Board board) {
+    public BoardDetailResponseDto(Board board) {
         this.id = board.getId();
         this.imageUrl = board.getImageUrl();
         this.grid = board.getGrid();
         this.content = board.getContent();
         this.createdAt = board.getCreatedAt();
         this.creater=board.getUsername();
+        this.likeCount=3;
     }
 }

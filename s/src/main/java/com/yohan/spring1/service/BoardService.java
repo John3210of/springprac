@@ -3,24 +3,37 @@ package com.yohan.spring1.service;
 import com.yohan.spring1.dto.BoardEditDto;
 import com.yohan.spring1.dto.BoardRequestDto;
 import com.yohan.spring1.model.Board;
+import com.yohan.spring1.model.User;
 import com.yohan.spring1.repository.BoardRepository;
+import com.yohan.spring1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
 
+//    @Transactional
+//    public String Create(BoardRequestDto boardRequestDto){
+//        Board board = new Board(boardRequestDto);
+//        boardRepository.save(board);
+//        //요기부터 새로작성
+//        return "글작성 완료";
+//    }
+
+    //연관관계 매핑 관련
     @Transactional
-    public String Create(BoardRequestDto boardRequestDto){
+    public String Save1(BoardRequestDto boardRequestDto){
+        User user = userRepository.findUserByUsername(boardRequestDto.getUsername());
         Board board = new Board(boardRequestDto);
+        board.setUser(user);
         boardRepository.save(board);
-        return "글작성 완료";
+        return "글작 성 완 1 료";
     }
 
     @Transactional
@@ -31,6 +44,7 @@ public class BoardService {
         board.update(boardEditDto);
         return board.getId();
     }
+
     @Transactional
     public Long delete(Long id){
         boardRepository.deleteById(id);

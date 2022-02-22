@@ -24,7 +24,7 @@ public class BoardController {
 
     @PostMapping("/api/board")  //글 작성하기
     public String createBoard(@RequestBody BoardRequestDto boardRequestDto){
-        return boardService.Create(boardRequestDto);
+        return boardService.Save1(boardRequestDto);
     }
 
     @GetMapping("/api/board")   //글 전체 조회하기
