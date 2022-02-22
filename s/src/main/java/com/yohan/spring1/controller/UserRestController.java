@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserRestController {
     private final UserService userService;
 
-    @PostMapping("/api/register")   //회원가입 임시
+    @PostMapping("/api/register")   //회원가입
     public String register(@RequestBody SignupRequestDto signupRequestDto) {
         return userService.Signup(signupRequestDto);
-
     }
 }
