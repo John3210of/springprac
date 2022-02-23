@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class LikesRequestDto {
     private Long userid;
+
 }

@@ -25,6 +25,6 @@ public class BoardResponseDto {
         this.content = board.getContent();
         this.createdAt = board.getCreatedAt();
         this.creater=board.getUsername();
-        this.likeCount=3;
+        this.likeCount=board.getLikeCount();
     }
 }

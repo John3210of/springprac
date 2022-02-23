@@ -37,7 +37,7 @@ public class Board extends Timestamped {
     private int likeCount;
 
     @JsonBackReference  //순환참조 방지. 자식 클래스   //mappedby => 관계의 주인은 이쪽이 아니다.
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Likes> LikeList = new ArrayList<>();
 
     @ManyToOne
@@ -46,9 +46,9 @@ public class Board extends Timestamped {
     private User user;
 
     public void setUser(User user){ //연관관계 정의 메소드
-        if (this.user != null) { // 기존에 이미 팀이 존재한다면
-            this.user.getBoardList().remove(this); // 관계를 끊는다.
-        }
+//        if (this.user != null) { // 기존에 이미 팀이 존재한다면
+//            this.user.getBoardList().remove(this); // 관계를 끊는다.
+//        }
         this.user = user;
         user.getBoardList().add(this);
     }

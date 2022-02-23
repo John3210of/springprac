@@ -38,12 +38,7 @@ public class BoardController {
         }
         return boardResponseDtoList;
     }
-
-//    @GetMapping("/api/board/{id}")
-//    public Optional<Board> Showdetail(@PathVariable Long id){
-//        Optional<Board> board = boardRepository.findById(id);
-//        return board;
-//    }
+    
 
     @GetMapping("/api/board/{id}") ////글 상세 페이지
     public String Showdetails(@PathVariable Long id){
