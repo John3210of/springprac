@@ -1,7 +1,6 @@
 package com.yohan.spring1.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.yohan.spring1.dto.LikesRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

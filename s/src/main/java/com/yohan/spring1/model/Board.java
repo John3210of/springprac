@@ -65,4 +65,6 @@ public class Board extends Timestamped {
         this.grid=boardEditDto.getGrid();
         this.content=boardEditDto.getContent();
     }
+
+    
 }
