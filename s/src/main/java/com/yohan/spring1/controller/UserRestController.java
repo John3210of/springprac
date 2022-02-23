@@ -26,12 +26,12 @@ public class UserRestController {
 
 
     @PostMapping("/api/register")   //회원가입
-    public String register(@RequestBody SignupRequestDto signupRequestDto) {
-        return userService.Signup(signupRequestDto);
+    public String register(@RequestBody SignupRequestDto signupRequestDto,HttpServletRequest request) {
+        return userService.Signup(signupRequestDto,request);
     }
 
     @PostMapping("/api/login")  //로그인
-    public String login(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
-        return userService.LoginChk(loginDto, request, response);
+    public String login(@RequestBody LoginDto loginDto, HttpServletRequest request) {
+        return userService.LoginChk(loginDto, request);
     }
 }

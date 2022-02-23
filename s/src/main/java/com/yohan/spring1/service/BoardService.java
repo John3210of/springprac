@@ -19,13 +19,6 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
-//    @Transactional
-//    public String Create(BoardRequestDto boardRequestDto){
-//        Board board = new Board(boardRequestDto);
-//        boardRepository.save(board);
-//        return "글작성 완료";
-//    }
-//  요기부터 새로작성
 
     //연관관계 매핑 관련
     @Transactional  //글작성

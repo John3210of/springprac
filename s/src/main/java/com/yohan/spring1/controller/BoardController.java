@@ -39,13 +39,13 @@ public class BoardController {
         return boardResponseDtoList;
     }
 
-    @GetMapping("/api/board/{id}")  //글 상세 페이지
-    public Optional<Board> Showdetail(@PathVariable Long id){
-        Optional<Board> board = boardRepository.findById(id);
-        return board;
-    }
+//    @GetMapping("/api/board/{id}")
+//    public Optional<Board> Showdetail(@PathVariable Long id){
+//        Optional<Board> board = boardRepository.findById(id);
+//        return board;
+//    }
 
-    @GetMapping("/api/board/detail/{id}")
+    @GetMapping("/api/board/{id}") ////글 상세 페이지
     public BoardResponseDto Showdetails(@PathVariable Long id){
         return boardService.brdDetail(id);
     }
@@ -61,4 +61,6 @@ public class BoardController {
         boardService.delete(id);
         return "삭제 완료";
     }
+
+
 }
