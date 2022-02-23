@@ -18,11 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 public class UserRestController {
 
     private final UserService userService;
-//    private final BoardService boardService;
-//    private final BoardRepository boardRepository;
-//    private final LikesService likesService;
-//    private final LikesRepository likesRepository;
-
 
     @PostMapping("/api/register")   //회원가입
     public String register(@RequestBody SignupRequestDto signupRequestDto, HttpServletRequest request) {

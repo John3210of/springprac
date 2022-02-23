@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 public class LikesController {
     private final LikesService likesService;
 
-    @PostMapping("/api/board/{boardid}/like")
+    @PostMapping("/api/board/{boardid}/like")       //좋아요 추가
     public String addLikes(@PathVariable Long boardid, @RequestBody LikesRequestDto likesrequestDto, HttpServletRequest request){
         return likesService.upLikes(boardid, likesrequestDto, request);
     }
 
-    @DeleteMapping("/api/board/{boardid}/like")
-    public String minusLikes(@PathVariable Long boardid,HttpServletRequest request){
-        return likesService.downLikes(boardid,request);
+    @DeleteMapping("/api/board/{boardid}/like")     //좋아요 삭제
+    public String minusLikes(Long boardid, LikesRequestDto likesrequestDto, HttpServletRequest request){
+        return likesService.downLikes(boardid,likesrequestDto,request);
     }
 }

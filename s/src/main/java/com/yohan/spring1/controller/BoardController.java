@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -38,7 +37,7 @@ public class BoardController {
         }
         return boardResponseDtoList;
     }
-    
+
 
     @GetMapping("/api/board/{id}") ////글 상세 페이지
     public String Showdetails(@PathVariable Long id){

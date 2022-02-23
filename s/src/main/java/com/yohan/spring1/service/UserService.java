@@ -1,6 +1,5 @@
 package com.yohan.spring1.service;
 
-import com.yohan.spring1.dto.BoardResponseDto;
 import com.yohan.spring1.dto.LoginDto;
 import com.yohan.spring1.dto.LoginResponseDto;
 import com.yohan.spring1.dto.SignupRequestDto;
@@ -23,8 +22,6 @@ import java.util.regex.Pattern;
 public class UserService {
 
     private final UserRepository userRepository;
-
-
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -100,11 +97,9 @@ public class UserService {
     public String LoginChk(LoginDto loginDto, HttpServletRequest request) {
 
         JSONObject obj = new JSONObject();
-
-        //    사용자 로그인 체크
-        if (request.getSession(false) != null){       //조건고치기, 비밀번호 암호화 불가능한거 해결 할 방법 찾기
+        if (request.getSession(false) != null){
             obj.put("result", "False");
-            obj.put("msg", "이미 로그인이 되어 있습니다.");
+            obj.put("msg", "이미 로그인 되어 있습니다.");
             return obj.toString();
         }
 
@@ -121,13 +116,13 @@ public class UserService {
             LoginResponseDto loginResponseDto = new LoginResponseDto(user);
             JSONObject dto = new JSONObject(loginResponseDto);
             System.out.println(dto);
-            obj.append("data",dto);
+            obj.append("data",dto); //얘도 어펜드로 넣어야됨
             session.setAttribute("loginDto", loginDto); //세션에 값을 넣어줌
             return obj.toString();
         } else{
             obj.put("result", "False");
             obj.put("msg", "닉네임 또는 패스워드를 확인해주세요.");
-            return obj.toString();      //session.invalidate();   //세션 삭제
+            return obj.toString();      //session.invalidate(); => 세션 삭제
         }
 
     }

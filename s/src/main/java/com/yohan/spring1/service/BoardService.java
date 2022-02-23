@@ -46,7 +46,7 @@ public class BoardService {
         obj.put("msg","게시글 조회 성공");
         JSONObject dto= new JSONObject(boardResponseDto);   //무야호 ㅋㅋㅋ 해냈다
         System.out.println(dto);
-        obj.append("data",dto);
+        obj.append("data",dto);     //얘는 어팬드 해야됨
         return obj.toString();
     }
 
