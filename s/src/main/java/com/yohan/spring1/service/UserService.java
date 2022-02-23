@@ -31,7 +31,7 @@ public class UserService {
     }
 
     @Transactional
-    public String Signup(SignupRequestDto requestDto,HttpServletRequest request) {
+    public String Signup(SignupRequestDto requestDto, HttpServletRequest request) {
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
         String passwordCheck = requestDto.getPasswordCheck();
@@ -40,11 +40,10 @@ public class UserService {
         HttpSession session = request.getSession(false);
 
         JSONObject obj = new JSONObject();
-        if (session != null){
+        if (session != null) {
             obj.put("result", "False");
             obj.put("msg", "이미 로그인이 되어 있습니다.");
             return obj.toString();
-
         }
 
         //닉네임은 `최소 3자 이상, 알파벳 대소문자(a~z, A~Z), 숫자(0~9)`로 구성하기
@@ -68,7 +67,7 @@ public class UserService {
         // 회원 email 중복 확인
         Optional<User> foundId = userRepository.findByEmail(email);
         if (foundId.isPresent()) {
-            obj.put("result","fail");
+            obj.put("result", "fail");
             obj.put("msg", "중복된 사용자 email이 존재합니다.");
             return obj.toString();
         }
@@ -82,7 +81,7 @@ public class UserService {
 
 //        password = passwordEncoder.encode(password);
 //        passwordCheck = passwordEncoder.encode(passwordCheck);
-        User user = new User(username, password,passwordCheck, email);
+        User user = new User(username, password, passwordCheck, email);
         userRepository.save(user);
         obj.put("result", "success");
         obj.put("msg", "회원 가입에 성공하였습니다.");
@@ -97,29 +96,30 @@ public class UserService {
     public String LoginChk(LoginDto loginDto, HttpServletRequest request) {
 
         JSONObject obj = new JSONObject();
-        if (request.getSession(false) != null){
+        if (request.getSession(false) != null) {
             obj.put("result", "False");
             obj.put("msg", "이미 로그인 되어 있습니다.");
             return obj.toString();
         }
-
+//        String password = passwordEncoder.encode(loginDto.getPassword());
+//        System.out.println(password);
         String email = loginDto.getEmail();
         String password = loginDto.getPassword();
         boolean exists = userRepository.existsByEmailAndPassword(email, password);
         HttpSession session = request.getSession();
 
-        if (exists){
+        if (exists) {
             User user = userRepository.findByEmail(email).orElseThrow(() -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
             obj.put("result", "True");
             obj.put("msg", "로그인에 성공했습니다.");
-            System.out.println(user.getId());
+//            System.out.println(user.getId());
             LoginResponseDto loginResponseDto = new LoginResponseDto(user);
             JSONObject dto = new JSONObject(loginResponseDto);
-            System.out.println(dto);
-            obj.append("data",dto); //얘도 어펜드로 넣어야됨
+//            System.out.println(dto);
+            obj.append("data", dto); //얘도 어펜드로 넣어야됨
             session.setAttribute("loginDto", loginDto); //세션에 값을 넣어줌
             return obj.toString();
-        } else{
+        } else {
             obj.put("result", "False");
             obj.put("msg", "닉네임 또는 패스워드를 확인해주세요.");
             return obj.toString();      //session.invalidate(); => 세션 삭제

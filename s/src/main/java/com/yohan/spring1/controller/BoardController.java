@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class BoardController {
     private final BoardRepository boardRepository;
 
     @PostMapping("/api/board")  //글 작성하기
-    public String createBoard(@RequestBody BoardRequestDto boardRequestDto){
-        return boardService.Save1(boardRequestDto);
+    public String createBoard(@RequestBody BoardRequestDto boardRequestDto, HttpServletRequest request){
+        return boardService.Save1(boardRequestDto,request);
     }
 
     @GetMapping("/api/board")   //글 전체 조회하기
@@ -38,7 +39,6 @@ public class BoardController {
         return boardResponseDtoList;
     }
 
-
     @GetMapping("/api/board/{id}") ////글 상세 페이지
     public String Showdetails(@PathVariable Long id){
         return boardService.brdDetail(id);
@@ -51,8 +51,8 @@ public class BoardController {
     }
 
     @DeleteMapping("/api/board/{id}")   //글 삭제하기
-    public String deleteBoard(@PathVariable Long id){
-        return boardService.delete(id);
+    public String deleteBoard(@PathVariable Long id,@RequestBody BoardEditDto boardEditDto){
+        return boardService.delete(id,boardEditDto);
 
     }
 

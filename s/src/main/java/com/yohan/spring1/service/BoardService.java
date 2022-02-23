@@ -11,6 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 
 @Service
@@ -20,55 +25,78 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
-
     //연관관계 매핑 관련
     @Transactional  //글작성
-    public String Save1(BoardRequestDto boardRequestDto){
-        User user = userRepository.findUserByUsername(boardRequestDto.getUsername());
-        Board board = new Board(boardRequestDto);
-        board.setUser(user);
-        boardRepository.save(board);
-        Long boardid=board.getId();
+    public String Save1(BoardRequestDto boardRequestDto, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
         JSONObject obj = new JSONObject();
-        obj.put("result", "success");
-        obj.put("boardid",boardid);
-        return obj.toString();
+        if (session == null) {
+            obj.put("result", "False");
+            obj.put("msg", "로그인이 필요합니다.");
+            return (obj.toString());
+        } else {
+            User user = userRepository.findUserByUsername(boardRequestDto.getUsername());
+            Board board = new Board(boardRequestDto);
+            board.setUser(user);
+            boardRepository.save(board);
+            Long boardid = board.getId();
+            obj.put("result", "success");
+            obj.put("boardid", boardid);
+            return obj.toString();
+        }
     }
 
     @Transactional  //상세페이지
-    public String brdDetail(Long id){
+    public String brdDetail(Long id) {
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
         BoardResponseDto boardResponseDto = new BoardResponseDto(board);
         JSONObject obj = new JSONObject();
         obj.put("result", "success");
-        obj.put("msg","게시글 조회 성공");
-        JSONObject dto= new JSONObject(boardResponseDto);   //무야호 ㅋㅋㅋ 해냈다
+        obj.put("msg", "게시글 조회 성공");
+        JSONObject dto = new JSONObject(boardResponseDto);   //무야호 ㅋㅋㅋ 해냈다
         System.out.println(dto);
-        obj.append("data",dto);     //얘는 어팬드 해야됨
+        obj.append("data", dto);     //얘는 어팬드 해야됨
         return obj.toString();
     }
 
     @Transactional  //글 수정
     public String update(Long id, BoardEditDto boardEditDto) {
+        JSONObject obj = new JSONObject();
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
+        if (boardEditDto.getUsername() != board.getUsername()) {
+            obj.put("result", "fail");
+            obj.put("msg", "글 작성자가 아니에용 ");
+            return obj.toString();
+        }
         board.update(boardEditDto);
-        JSONObject obj = new JSONObject();
         obj.put("result", "success");
-        obj.put("msg","글 수정 완료");
+        obj.put("msg", "글 수정 완료");
         return obj.toString();
     }
 
     @Transactional  //글 삭제
-    public String delete(Long id){
+    public String delete(Long id,@RequestBody BoardEditDto boardEditDto) {
+        JSONObject objt = new JSONObject();
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
+        );
+
+//        System.out.println(boardEditDto.getUsername());
+//        System.out.println(board.getUsername());
+        if (!Objects.equals(boardEditDto.getUsername(), board.getUsername())) {
+            objt.put("result", "fail");
+            objt.put("msg", "글 작성자가 아니용 ");
+            return objt.toString();
+        }
+
         boardRepository.deleteById(id);
-        JSONObject obj = new JSONObject();
-        obj.put("result", "success");
-        obj.put("msg","글 삭제 완료");
-        return obj.toString();
+        objt.put("result", "success");
+        objt.put("msg", "글 삭제 완료");
+        return objt.toString();
     }
 
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequiredArgsConstructor
 public class LikesController {
+
     private final LikesService likesService;
 
     @PostMapping("/api/board/{boardid}/like")       //좋아요 추가
@@ -18,7 +19,7 @@ public class LikesController {
     }
 
     @DeleteMapping("/api/board/{boardid}/like")     //좋아요 삭제
-    public String minusLikes(Long boardid, LikesRequestDto likesrequestDto, HttpServletRequest request){
+    public String minusLikes(@PathVariable Long boardid,@RequestBody LikesRequestDto likesrequestDto, HttpServletRequest request){
         return likesService.downLikes(boardid,likesrequestDto,request);
     }
 }

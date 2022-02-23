@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class BoardResponseDto {
-    private Long id;
+    private Long boardid;
     private String imageUrl;
     private String grid;
     private String content;
@@ -19,7 +19,7 @@ public class BoardResponseDto {
 
     // 전체 글 조회
     public BoardResponseDto(Board board) {
-        this.id = board.getId();
+        this.boardid = board.getId();
         this.imageUrl = board.getImageUrl();
         this.grid = board.getGrid();
         this.content = board.getContent();
