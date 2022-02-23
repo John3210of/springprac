@@ -45,6 +45,11 @@ public class Board extends Timestamped {
     @JsonManagedReference       //순환참조방지. 부모클래스
     private User user;
 
+    public void plusLikeCount(){ this.likeCount += 1; }
+    public void minusLikeCount(){
+        this.likeCount -= 1;
+    }
+
     public void setUser(User user){ //연관관계 정의 메소드
         if (this.user != null) { // 기존에 이미 팀이 존재한다면
             this.user.getBoardList().remove(this); // 관계를 끊는다.
@@ -52,7 +57,7 @@ public class Board extends Timestamped {
         this.user = user;
         user.getBoardList().add(this);
     }
-
+    //123123123
     public Board(BoardRequestDto boardrequestDto){
         this.username = boardrequestDto.getUsername();
         this.grid = boardrequestDto.getGrid();
@@ -66,5 +71,4 @@ public class Board extends Timestamped {
         this.content=boardEditDto.getContent();
     }
 
-    
 }

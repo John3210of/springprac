@@ -42,6 +42,7 @@ public class LikesService {
                 likes.setBoard(board);
                 likes.setUser(user);
                 likesRepository.save(likes);
+                board.plusLikeCount(); //카운트증가 소란후 추가
                 obj.put("result", "success");
                 obj.put("msg", "좋아용");
                 return (obj.toString());
@@ -69,9 +70,11 @@ public class LikesService {
 
                 Likes likes = likesRepository.findByBoard_IdAndAndUser_Id(boardid, useridChk);
                 likesRepository.deleteById(likes.getId());
-                System.out.println(likes.getId());
+                Board board = boardRepository.findBoardById(boardid);
+                board.minusLikeCount(); //으악 해줘
                 obj.put("result", "success");
                 obj.put("msg", "좋아요 취소했어용");
+
                 return (obj.toString());
             }
             obj.put("result", "False");
