@@ -46,7 +46,7 @@ public class BoardController {
 //    }
 
     @GetMapping("/api/board/{id}") ////글 상세 페이지
-    public BoardResponseDto Showdetails(@PathVariable Long id){
+    public String Showdetails(@PathVariable Long id){
         return boardService.brdDetail(id);
     }
 

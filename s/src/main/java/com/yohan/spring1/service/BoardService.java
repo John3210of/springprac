@@ -8,6 +8,7 @@ import com.yohan.spring1.model.User;
 import com.yohan.spring1.repository.BoardRepository;
 import com.yohan.spring1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,31 +28,46 @@ public class BoardService {
         Board board = new Board(boardRequestDto);
         board.setUser(user);
         boardRepository.save(board);
-        return "글작성 완료";
+        Long boardid=board.getId();
+        JSONObject obj = new JSONObject();
+        obj.put("result", "success");
+        obj.put("boardid",boardid);
+        return obj.toString();
     }
 
     @Transactional  //상세페이지
-    public BoardResponseDto brdDetail(Long id){
+    public String brdDetail(Long id){
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
         BoardResponseDto boardResponseDto = new BoardResponseDto(board);
-        return boardResponseDto;
+        JSONObject obj = new JSONObject();
+        obj.put("result", "success");
+        obj.put("msg","글 작성 완료");
+        JSONObject dto= new JSONObject(boardResponseDto);   //무야호 ㅋㅋㅋ 해냈다
+        obj.append("data",dto);
+        return obj.toString();
     }
 
     @Transactional  //글 수정
-    public Long update(Long id, BoardEditDto boardEditDto) {
+    public String update(Long id, BoardEditDto boardEditDto) {
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
         board.update(boardEditDto);
-        return board.getId();
+        JSONObject obj = new JSONObject();
+        obj.put("result", "success");
+        obj.put("msg","글 수정 완료");
+        return obj.toString();
     }
 
     @Transactional  //글 삭제
-    public Long delete(Long id){
+    public String delete(Long id){
         boardRepository.deleteById(id);
-        return id;
+        JSONObject obj = new JSONObject();
+        obj.put("result", "success");
+        obj.put("msg","글 삭제 완료");
+        return obj.toString();
     }
 
 }
