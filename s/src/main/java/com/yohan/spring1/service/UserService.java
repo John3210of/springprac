@@ -122,7 +122,7 @@ public class UserService {
         } else {
             obj.put("result", "False");
             obj.put("msg", "닉네임 또는 패스워드를 확인해주세요.");
-            return obj.toString();      //session.invalidate(); => 세션 삭제
+            return obj.toString();
         }
 
     }
