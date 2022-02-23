@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +32,8 @@ public class LikesService {
             obj.put("msg", "로그인이 필요합니다.");
             return (obj.toString());
         } else {
-            Long boardidChk = boardid;
             Long useridChk = likesrequestDto.getUserid();
-            boolean exists = likesRepository.existsByBoard_IdAndAndUser_Id(boardidChk, useridChk);
+            boolean exists = likesRepository.existsByBoard_IdAndAndUser_Id(boardid, useridChk);
 
             if (!exists) {
                 User user = userRepository.findUserById(likesrequestDto.getUserid());
@@ -46,7 +44,6 @@ public class LikesService {
                 likesRepository.save(likes);
                 obj.put("result", "success");
                 obj.put("msg", "좋아용");
-                System.out.println(board.getLikeCount() + 1);
                 return (obj.toString());
             }
 
@@ -69,11 +66,8 @@ public class LikesService {
             boolean exists = likesRepository.existsByBoard_IdAndAndUser_Id(boardid, useridChk);
 
             if (exists) {
-//                User user = userRepository.findUserById(likesrequestDto.getUserid());
-//                Board board = boardRepository.findBoardById(boardid);
+
                 Likes likes = likesRepository.findByBoard_IdAndAndUser_Id(boardid, useridChk);
-//                likes.setBoard(board);
-//                likes.setUser(user);
                 likesRepository.deleteById(likes.getId());
                 System.out.println(likes.getId());
                 obj.put("result", "success");
@@ -84,7 +78,6 @@ public class LikesService {
             obj.put("msg", "좋아요 한적이 없음");
             return (obj.toString());
         }
-
     }
 }
 
