@@ -43,8 +43,9 @@ public class BoardService {
         BoardResponseDto boardResponseDto = new BoardResponseDto(board);
         JSONObject obj = new JSONObject();
         obj.put("result", "success");
-        obj.put("msg","글 작성 완료");
+        obj.put("msg","게시글 조회 성공");
         JSONObject dto= new JSONObject(boardResponseDto);   //무야호 ㅋㅋㅋ 해냈다
+        System.out.println(dto);
         obj.append("data",dto);
         return obj.toString();
     }
