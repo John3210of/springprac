@@ -53,6 +53,5 @@ public class User extends Timestamped {
         this.password = password;
         this.passwordCheck = passwordCheck;
         this.email = email;
-
     }
 }
