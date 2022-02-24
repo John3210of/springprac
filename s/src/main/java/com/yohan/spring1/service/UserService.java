@@ -109,8 +109,10 @@ public class UserService {
 
         if (exists) {
             User user = userRepository.findByEmail(email).orElseThrow(() -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
+            String ssid=session.getId();
             obj.put("result", "True");
             obj.put("msg", "로그인에 성공했습니다.");
+            obj.append("token",ssid);
 //            System.out.println(user.getId());
             LoginResponseDto loginResponseDto = new LoginResponseDto(user);
             JSONObject dto = new JSONObject(loginResponseDto);
