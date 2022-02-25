@@ -52,7 +52,7 @@ public class Board extends Timestamped {
     }
 
     public void setUser(User user){ //연관관계 정의 메소드
-        if (this.user != null) { // 기존에 이미 팀이 존재한다면
+        if (this.user != null) { // 기존에 이미 존재한다면
             this.user.getBoardList().remove(this); // 관계를 끊는다.
         }
         this.user = user;

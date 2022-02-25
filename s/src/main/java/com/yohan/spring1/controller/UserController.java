@@ -21,12 +21,9 @@ public class UserController {
         return userService.Signupv2(signupRequestDto);
     }
 
-//    public String login(@RequestBody Map<String, String> user) {
-//     로그인
+    //로그인
     @PostMapping("/api/login")
-
-        public String login(@RequestBody LoginDto loginDto) {
-
+    public String login(@RequestBody LoginDto loginDto) {
         return userService.loginChk(loginDto);
 
     }

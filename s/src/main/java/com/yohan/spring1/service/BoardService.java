@@ -3,16 +3,22 @@ package com.yohan.spring1.service;
 import com.yohan.spring1.dto.BoardEditDto;
 import com.yohan.spring1.dto.BoardRequestDto;
 import com.yohan.spring1.dto.BoardResponseDto;
+import com.yohan.spring1.dto.LikesResponseDto;
 import com.yohan.spring1.model.Board;
+import com.yohan.spring1.model.Likes;
 import com.yohan.spring1.model.User;
 import com.yohan.spring1.repository.BoardRepository;
+import com.yohan.spring1.repository.LikesRepository;
 import com.yohan.spring1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -22,6 +28,41 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
+    private final LikesRepository likesRepository;
+
+    // 전체 글 조회
+    public String showall(){
+        List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC,"createdAt"));
+
+        List<BoardResponseDto> boardResponseDtoList = new ArrayList<>();
+        for(Board board : boardList){
+
+            List<Likes> likeslists = likesRepository.findLikesByBoard_Id(board.getId());
+
+            List<LikesResponseDto> likesResponseDtos = new ArrayList<>();
+            for(Likes likeslist : likeslists){
+                LikesResponseDto likesResponseDto = new LikesResponseDto(likeslist.getUser().getId());
+                likesResponseDtos.add(likesResponseDto);
+            }
+            BoardResponseDto boardResponseDto = BoardResponseDto.builder()
+                    .boardId(board.getId())
+                    .creater(board.getUsername())
+                    .content(board.getContent())
+                    .imageUrl(board.getImageUrl())
+                    .grid(board.getGrid())
+                    .likeCount(board.getLikeCount())
+                    .createdAt(board.getCreatedAt())
+                    .likes(likesResponseDtos)
+                    .build();
+            boardResponseDtoList.add(boardResponseDto);
+        }
+        JSONObject obj = new JSONObject();
+        obj.put("result","success");
+        obj.put("msg","전체 게시글 조회");
+        obj.append("boardResponseDtos",boardResponseDtoList);
+
+        return obj.toString();
+    }
 
     //연관관계 매핑 관련
     @Transactional  //글작성
@@ -45,12 +86,30 @@ public class BoardService {
         }
     }
 
-    @Transactional  //상세페이지
-    public String brdDetail(Long id) {
+    public String brdDetail(Long id) {  //상세페이지
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
-        BoardResponseDto boardResponseDto = new BoardResponseDto(board);
+
+        List<Likes> likeslists = likesRepository.findLikesByBoard_Id(id);
+
+        List<LikesResponseDto> likesResponseDtos = new ArrayList<>();
+        for(Likes likeslist : likeslists){
+            LikesResponseDto likesResponseDto = new LikesResponseDto(likeslist.getUser().getId());
+            likesResponseDtos.add(likesResponseDto);
+        }
+        BoardResponseDto boardResponseDto = BoardResponseDto.builder()
+                .boardId(board.getId())
+                .creater(board.getUsername())
+                .content(board.getContent())
+                .imageUrl(board.getImageUrl())
+                .grid(board.getGrid())
+                .likeCount(board.getLikeCount())
+                .createdAt(board.getCreatedAt())
+                .likes(likesResponseDtos)
+                .build();
+
+
         JSONObject obj = new JSONObject();
         obj.put("result", "success");
         obj.put("msg", "게시글 조회 성공");

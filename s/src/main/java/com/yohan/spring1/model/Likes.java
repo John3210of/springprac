@@ -29,16 +29,16 @@ public class Likes extends Timestamped{
     private Board board;
 
     public void setUser(User user){
-        if (this.user != null) { // 기존에 이미 팀이 존재한다면
-            this.user.getLikeList().remove(this); // 관계를 끊는다.
+        if (this.user != null) {
+            this.user.getLikeList().remove(this);
         }
         this.user = user;
         user.getLikeList().add(this);
     }
 
     public void setBoard(Board board){
-        if (this.board != null) { // 기존에 이미 팀이 존재한다면
-            this.board.getLikeList().remove(this); // 관계를 끊는다.
+        if (this.board != null) {
+            this.board.getLikeList().remove(this);
         }
         this.board = board;
         board.getLikeList().add(this);

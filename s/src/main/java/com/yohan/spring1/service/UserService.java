@@ -33,8 +33,6 @@ public class UserService {
     public String Signupv2(SignupRequestDto signupRequestDto) {
         JSONObject obj = new JSONObject();
 
-        //토큰 가지고 있는지 판별식 넣기
-
         //닉네임은 `최소 3자 이상, 알파벳 대소문자(a~z, A~Z), 숫자(0~9)`로 구성하기
         if (!Pattern.matches("^[A-Za-z0-9]*$", signupRequestDto.getUsername()) || signupRequestDto.getUsername().length() < 3) {
             obj.put("result", "fail");
@@ -85,9 +83,7 @@ public class UserService {
         return obj.toString();
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//    //로그인 체크
-
+    //로그인 체크
     @Transactional
     public String loginChk(LoginDto loginDto) {
         JSONObject obj = new JSONObject();
@@ -108,7 +104,7 @@ public class UserService {
                     .email(user.getEmail())
                     .username(user.getUsername())
                     .userId(user.getId())
-                    .token(jwtTokenProvider.createToken(user.getUsername(),user.getRoles()))
+                    .token(jwtTokenProvider.createToken(user.getUsername(), user.getRoles()))
                     .build();
             obj.put("result", "True");
             obj.put("msg", "로그인에 성공했습니다.");

@@ -7,11 +7,8 @@ import lombok.Getter;
 public class LoginResponse2Dto {
 
     private Long userId;
-
     private String email;
-
     private String username;
-
     private String token;
 
     @Builder
