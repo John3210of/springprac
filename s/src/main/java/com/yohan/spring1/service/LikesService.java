@@ -24,10 +24,9 @@ public class LikesService {
     private final LikesRepository likesRepository;
 
     @Transactional  //좋아요 누르기
-    public String upLikes(Long boardid, @RequestBody LikesRequestDto likesrequestDto, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+    public String upLikes(Long boardid, @RequestBody LikesRequestDto likesrequestDto) {
         JSONObject obj = new JSONObject();
-        if (session == null) {
+        if (false) {
             obj.put("result", "False");
             obj.put("msg", "로그인이 필요합니다.");
             return (obj.toString());
@@ -56,10 +55,9 @@ public class LikesService {
     }
 
     @Transactional  //좋아요 취소 하기
-    public String downLikes(Long boardid, @RequestBody LikesRequestDto likesrequestDto, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+    public String downLikes(Long boardid, @RequestBody LikesRequestDto likesrequestDto) {
         JSONObject obj = new JSONObject();
-        if (session == null) {
+        if (false) {
             obj.put("result", "False");
             obj.put("msg", "로그인이 필요합니다.");
             return (obj.toString());

@@ -47,12 +47,10 @@ public class BoardController {
     @PutMapping("/api/board/{id}")  //글 수정하기
     public String updateBoard(@PathVariable Long id,@RequestBody BoardEditDto boardEditDto){
         return boardService.update(id,boardEditDto);
-
     }
 
     @DeleteMapping("/api/board/{id}")   //글 삭제하기
     public String deleteBoard(@PathVariable Long id,@RequestBody BoardEditDto boardEditDto){
         return boardService.delete(id,boardEditDto);
-
     }
 }

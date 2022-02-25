@@ -2,6 +2,7 @@ package com.yohan.spring1.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,8 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() // csrf 보안 토큰 disable처리.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
                 .and()
+//                    .cors()
                 .authorizeRequests() // 요청에 대한 사용권한 체크
-                .antMatchers("/api/board/{boardid}/like").hasRole("USER")
+//                .antMatchers("/api/login").hasRole("USER")
+                    .antMatchers(HttpMethod.GET,"/api/board").permitAll()
+                    .antMatchers(HttpMethod.GET,"/api/board/{boardid}").permitAll()
+//                    .antMatchers("/api/board/{boardid}/like").hasRole("USER")
+                    .antMatchers("/api/board/**").hasRole("USER")
                 .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
