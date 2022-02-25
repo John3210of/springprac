@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class Board extends Timestamped {
+
     //id title content username time1,2 이 요구된다.
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id //pk값으로 쓰겠다
@@ -57,7 +58,7 @@ public class Board extends Timestamped {
         this.user = user;
         user.getBoardList().add(this);
     }
-    //123123123
+
     public Board(BoardRequestDto boardrequestDto){
         this.username = boardrequestDto.getUsername();
         this.grid = boardrequestDto.getGrid();

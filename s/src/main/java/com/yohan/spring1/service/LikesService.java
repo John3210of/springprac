@@ -33,6 +33,7 @@ public class LikesService {
             return (obj.toString());
         } else {
             Long useridChk = likesrequestDto.getUserid();
+
             boolean exists = likesRepository.existsByBoard_IdAndAndUser_Id(boardid, useridChk);
 
             if (!exists) {
@@ -42,7 +43,7 @@ public class LikesService {
                 likes.setBoard(board);
                 likes.setUser(user);
                 likesRepository.save(likes);
-                board.plusLikeCount(); //카운트증가 소란후 추가
+                board.plusLikeCount(); //카운트증가
                 obj.put("result", "success");
                 obj.put("msg", "좋아용");
                 return (obj.toString());
@@ -71,7 +72,7 @@ public class LikesService {
                 Likes likes = likesRepository.findByBoard_IdAndAndUser_Id(boardid, useridChk);
                 likesRepository.deleteById(likes.getId());
                 Board board = boardRepository.findBoardById(boardid);
-                board.minusLikeCount(); //으악 해줘
+                board.minusLikeCount();
                 obj.put("result", "success");
                 obj.put("msg", "좋아요 취소했어용");
 
@@ -83,23 +84,3 @@ public class LikesService {
         }
     }
 }
-
-
-//        HttpSession session = request.getSession(false);
-//        JSONObject obj = new JSONObject();
-//        if (session == null) {
-//            obj.put("result", "False");
-//            obj.put("msg", "로그인이 필요합니다.");
-//            return (obj.toString());
-//        } else {
-//            User user = userRepository.findUserById(likesrequestDto.getUserid());
-//            Board board = boardRepository.findBoardById(boardid);
-//            Likes likes = new Likes();
-//            likes.setBoard(board);
-//            likes.setUser(user);
-//            likesRepository.delete(likes);
-//            obj.put("result", "success");
-//            obj.put("msg", "좋아요 취소에용");
-//            return (obj.toString());
-//        }
-//    }

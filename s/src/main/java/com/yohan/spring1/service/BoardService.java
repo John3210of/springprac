@@ -85,8 +85,7 @@ public class BoardService {
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
 
-//        System.out.println(boardEditDto.getUsername());
-//        System.out.println(board.getUsername());
+
         if (!Objects.equals(boardEditDto.getUsername(), board.getUsername())) {
             objt.put("result", "fail");
             objt.put("msg", "글 작성자가 아니용 ");

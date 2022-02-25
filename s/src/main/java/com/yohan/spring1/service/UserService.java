@@ -21,12 +21,10 @@ import java.util.regex.Pattern;
 public class UserService {
 
     private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-//        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -78,8 +76,6 @@ public class UserService {
             return obj.toString();
         }
 
-//        password = passwordEncoder.encode(password);
-//        passwordCheck = passwordEncoder.encode(passwordCheck);
         User user = new User(username, password, passwordCheck, email);
         userRepository.save(user);
         obj.put("result", "success");
@@ -87,8 +83,6 @@ public class UserService {
         return obj.toString();
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //로그인 체크
@@ -100,8 +94,7 @@ public class UserService {
             obj.put("msg", "이미 로그인 되어 있습니다.");
             return obj.toString();
         }
-//        String password = passwordEncoder.encode(loginDto.getPassword());
-//        System.out.println(password);
+
         String email = loginDto.getEmail();
         String password = loginDto.getPassword();
         boolean exists = userRepository.existsByEmailAndPassword(email, password);
@@ -113,10 +106,8 @@ public class UserService {
             obj.put("result", "True");
             obj.put("msg", "로그인에 성공했습니다.");
             obj.append("token",ssid);
-//            System.out.println(user.getId());
             LoginResponseDto loginResponseDto = new LoginResponseDto(user);
             JSONObject dto = new JSONObject(loginResponseDto);
-//            System.out.println(dto);
             obj.append("data", dto); //얘도 어펜드로 넣어야됨
             session.setAttribute("loginDto", loginDto); //세션에 값을 넣어줌
             return obj.toString();
