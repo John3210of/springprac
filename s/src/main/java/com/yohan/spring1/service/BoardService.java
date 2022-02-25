@@ -28,9 +28,8 @@ public class BoardService {
     //연관관계 매핑 관련
     @Transactional  //글작성
     public String Save1(BoardRequestDto boardRequestDto, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
         JSONObject obj = new JSONObject();
-        if (session == null) {
+        if (false) {
             obj.put("result", "False");
             obj.put("msg", "로그인이 필요합니다.");
             return (obj.toString());
@@ -84,7 +83,6 @@ public class BoardService {
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
-
 
         if (!Objects.equals(boardEditDto.getUsername(), board.getUsername())) {
             objt.put("result", "fail");

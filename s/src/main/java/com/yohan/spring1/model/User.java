@@ -2,20 +2,29 @@ package com.yohan.spring1.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.yohan.spring1.dto.SignupRequestDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
-@Entity
 @Getter
 @NoArgsConstructor
-public class User extends Timestamped {
+@AllArgsConstructor
+@Builder
+@Entity
+public class User extends Timestamped implements UserDetails {
     //id , email , nickname , 시간들
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id //pk값으로 쓰겠다
     @Column(name = "userid")
     private Long id;
@@ -53,5 +62,41 @@ public class User extends Timestamped {
         this.password = password;
         this.passwordCheck = passwordCheck;
         this.email = email;
+    }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
