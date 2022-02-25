@@ -39,7 +39,8 @@ public class BoardService {
             boardRepository.save(board);
             Long boardid = board.getId();
             obj.put("result", "success");
-            obj.put("boardid", boardid);
+            obj.put("msg","응애 만들어줘");
+            obj.put("boardId", boardid);
             return obj.toString();
         }
     }
@@ -55,7 +56,7 @@ public class BoardService {
         obj.put("msg", "게시글 조회 성공");
         JSONObject dto = new JSONObject(boardResponseDto);   //무야호 ㅋㅋㅋ 해냈다
         System.out.println(dto);
-        obj.append("data", dto);     //얘는 어팬드 해야됨
+        obj.append("boardResponseDto", dto);     //얘는 어팬드 해야됨
         return obj.toString();
     }
 
@@ -92,6 +93,7 @@ public class BoardService {
         boardRepository.deleteById(id);
         objt.put("result", "success");
         objt.put("msg", "글 삭제 완료");
+        objt.put("boardId",id);
         return objt.toString();
     }
 

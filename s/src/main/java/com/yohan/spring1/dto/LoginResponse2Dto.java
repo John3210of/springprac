@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class LoginResponse2Dto {
 
-    private Long userid;
+    private Long userId;
 
     private String email;
 
@@ -16,7 +16,7 @@ public class LoginResponse2Dto {
 
     @Builder
     public LoginResponse2Dto(Long userId, String email, String username, String token){
-        this.userid = userId;
+        this.userId = userId;
         this.email = email;
         this.username = username;
         this.token = token;
