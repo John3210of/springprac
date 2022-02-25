@@ -27,9 +27,10 @@ public class BoardService {
 
     //연관관계 매핑 관련
     @Transactional  //글작성
-    public String Save1(BoardRequestDto boardRequestDto, HttpServletRequest request) {
+    public String Save1(BoardRequestDto boardRequestDto) {
         JSONObject obj = new JSONObject();
         if (false) {
+            //여기서 조건에 헤즈롤 갈겨
             obj.put("result", "False");
             obj.put("msg", "로그인이 필요합니다.");
             return (obj.toString());

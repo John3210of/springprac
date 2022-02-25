@@ -31,39 +31,13 @@ public class UserController {
         return userService.Signupv2(signupRequestDto);
     }
 
+//    public String login(@RequestBody Map<String, String> user) {
 //     로그인
     @PostMapping("/api/login")
-//    public String login(@RequestBody Map<String, String> user) {
+
         public String login(@RequestBody LoginDto loginDto) {
 
-         JSONObject obj = new JSONObject();
-
-        if (false) {
-            obj.put("result", "False");
-            obj.put("msg", "이미 로그인 되어 있습니다.");
-            return obj.toString();
-        }
-
-        String email = loginDto.getEmail();
-        String password = loginDto.getPassword();
-        boolean exists = userRepository.existsByEmailAndPassword(email, password);
-
-        if (exists) {
-            User user = userRepository.findByEmail(email).orElseThrow(() -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
-            String token= jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-            //이거 어케 responseDto에 담았는지 물어보기
-            obj.put("result", "True");
-            obj.put("msg", "로그인에 성공했습니다.");
-            obj.append("token",token);
-            LoginResponseDto loginResponseDto = new LoginResponseDto(user);
-            JSONObject dto = new JSONObject(loginResponseDto);
-            obj.append("data", dto); //얘도 어펜드로 넣어야됨
-            return obj.toString();
-        } else {
-            obj.put("result", "False");
-            obj.put("msg", "닉네임 또는 패스워드를 확인해주세요.");
-            return obj.toString();
-        }
+        return userService.loginChk(loginDto);
 
     }
 }
