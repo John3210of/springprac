@@ -109,7 +109,7 @@ public class UserService {
             obj.put("result", "True");
             obj.put("msg", "로그인에 성공했습니다.");
             JSONObject dto = new JSONObject(loginResponse2Dto);
-            obj.append("userData", dto); //얘도 어펜드로 넣어야됨
+            obj.put("userData", dto); //얘도 어펜드로 넣어야됨
             return obj.toString();
         } else {
             obj.put("result", "False");

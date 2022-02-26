@@ -59,7 +59,7 @@ public class BoardService {
         JSONObject obj = new JSONObject();
         obj.put("result","success");
         obj.put("msg","전체 게시글 조회");
-        obj.append("boardResponseDtos",boardResponseDtoList);
+        obj.put("boardResponseDtos",boardResponseDtoList);
 
         return obj.toString();
     }
@@ -115,7 +115,7 @@ public class BoardService {
         obj.put("msg", "게시글 조회 성공");
         JSONObject dto = new JSONObject(boardResponseDto);   //무야호 ㅋㅋㅋ 해냈다
         System.out.println(dto);
-        obj.append("boardResponseDto", dto);     //얘는 어팬드 해야됨
+        obj.put("boardResponseDto", dto);
         return obj.toString();
     }
 
