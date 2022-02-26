@@ -125,7 +125,7 @@ public class BoardService {
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
         );
-        if (boardEditDto.getUsername() != board.getUsername()) {
+        if (!Objects.equals(boardEditDto.getUsername(), board.getUsername())) {
             obj.put("result", "fail");
             obj.put("msg", "글 작성자가 아니에용 ");
             return obj.toString();

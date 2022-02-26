@@ -29,12 +29,12 @@ public class LikesService {
             obj.put("msg", "로그인이 필요합니다.");
             return (obj.toString());
         } else {
-            Long useridChk = likesrequestDto.getUserid();
+            Long useridChk = likesrequestDto.getUserId();
 
             boolean exists = likesRepository.existsByBoard_IdAndAndUser_Id(boardid, useridChk);
 
             if (!exists) {
-                User user = userRepository.findUserById(likesrequestDto.getUserid());
+                User user = userRepository.findUserById(likesrequestDto.getUserId());
                 Board board = boardRepository.findBoardById(boardid);
                 Likes likes = new Likes();
                 likes.setBoard(board);
@@ -60,7 +60,7 @@ public class LikesService {
             obj.put("msg", "로그인이 필요합니다.");
             return (obj.toString());
         } else {
-            Long useridChk = likesrequestDto.getUserid();
+            Long useridChk = likesrequestDto.getUserId();
             boolean exists = likesRepository.existsByBoard_IdAndAndUser_Id(boardid, useridChk);
 
             if (exists) {
