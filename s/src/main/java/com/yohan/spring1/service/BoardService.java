@@ -31,16 +31,16 @@ public class BoardService {
     private final LikesRepository likesRepository;
 
     // 전체 글 조회
-    public String showall(){
-        List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC,"createdAt"));
+    public String showall() {
+        List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
 
         List<BoardResponseDto> boardResponseDtoList = new ArrayList<>();
-        for(Board board : boardList){
+        for (Board board : boardList) {
 
             List<Likes> likeslists = likesRepository.findLikesByBoard_Id(board.getId());
 
             List<LikesResponseDto> likesResponseDtos = new ArrayList<>();
-            for(Likes likeslist : likeslists){
+            for (Likes likeslist : likeslists) {
                 LikesResponseDto likesResponseDto = new LikesResponseDto(likeslist.getUser().getId());
                 likesResponseDtos.add(likesResponseDto);
             }
@@ -57,9 +57,9 @@ public class BoardService {
             boardResponseDtoList.add(boardResponseDto);
         }
         JSONObject obj = new JSONObject();
-        obj.put("result","success");
-        obj.put("msg","전체 게시글 조회");
-        obj.put("boardResponseDtos",boardResponseDtoList);
+        obj.put("result", "success");
+        obj.put("msg", "전체 게시글 조회");
+        obj.put("boardResponseDtos", boardResponseDtoList);
 
         return obj.toString();
     }
@@ -75,12 +75,18 @@ public class BoardService {
             return (obj.toString());
         } else {
             User user = userRepository.findUserByUsername(boardRequestDto.getUsername());
-            Board board = new Board(boardRequestDto);
+//            Board board = new Board(boardRequestDto);
+            Board board = Board.builder()
+                    .username(boardRequestDto.getUsername())
+                    .imageUrl((boardRequestDto.getImageUrl()))
+                    .grid(boardRequestDto.getGrid())
+                    .content(boardRequestDto.getContent())
+                    .build();
             board.setUser(user);
             boardRepository.save(board);
             Long boardid = board.getId();
             obj.put("result", "success");
-            obj.put("msg","응애 만들어줘");
+            obj.put("msg", "응애 만들어줘");
             obj.put("boardId", boardid);
             return obj.toString();
         }
@@ -94,7 +100,7 @@ public class BoardService {
         List<Likes> likeslists = likesRepository.findLikesByBoard_Id(id);
 
         List<LikesResponseDto> likesResponseDtos = new ArrayList<>();
-        for(Likes likeslist : likeslists){
+        for (Likes likeslist : likeslists) {
             LikesResponseDto likesResponseDto = new LikesResponseDto(likeslist.getUser().getId());
             likesResponseDtos.add(likesResponseDto);
         }
@@ -137,7 +143,7 @@ public class BoardService {
     }
 
     @Transactional  //글 삭제
-    public String delete(Long id,@RequestBody BoardEditDto boardEditDto) {
+    public String delete(Long id, @RequestBody BoardEditDto boardEditDto) {
         JSONObject objt = new JSONObject();
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
@@ -152,7 +158,7 @@ public class BoardService {
         boardRepository.deleteById(id);
         objt.put("result", "success");
         objt.put("msg", "글 삭제 완료");
-        objt.put("boardId",id);
+        objt.put("boardId", id);
         return objt.toString();
     }
 

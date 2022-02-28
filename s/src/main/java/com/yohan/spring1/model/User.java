@@ -50,12 +50,12 @@ public class User extends Timestamped implements UserDetails {
     private List<Likes> LikeList = new ArrayList<>();
 
 
-    public User(SignupRequestDto signupRequestDto) {
-        this.username = signupRequestDto.getUsername();
-        this.password = signupRequestDto.getPassword();
-        this.passwordCheck = signupRequestDto.getPasswordCheck();
-        this.email = signupRequestDto.getEmail();
-    }
+//    public User(SignupRequestDto signupRequestDto) {
+//        this.username = signupRequestDto.getUsername();
+//        this.password = signupRequestDto.getPassword();
+//        this.passwordCheck = signupRequestDto.getPasswordCheck();
+//        this.email = signupRequestDto.getEmail();
+//    }
 
     public User(String username, String password,String passwordCheck, String email) {
         this.username = username;
