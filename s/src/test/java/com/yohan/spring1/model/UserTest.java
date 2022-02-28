@@ -1,27 +1,26 @@
 package com.yohan.spring1.model;
 
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-
-
-class UserTest {
-    //given
+@SpringBootTest
+@Transactional
+public class UserTest {
     @Test
-    @DisplayName("정상")
-    void Signup() {
-        String email = "asd@asdf";
-        String username = "asdfg";
-        String password = "12341234";
-        String passwordCheck = "12341234";
-
-
-        //when
-
-        User user = new User();
-
-        //then
-
+    public void usercreate(){
+        //given
+        String email="asd@asd.com";
+        String username="username";
+        String password="password";
+        String passwordCheck="password";
     }
+
+    //when
+    User user = User.builder().build();
+
+    //then
+
 }

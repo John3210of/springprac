@@ -53,9 +53,10 @@ public class Board extends Timestamped {
     }
 
     public void setUser(User user){ //연관관계 정의 메소드
-        if (this.user != null) { // 기존에 이미 존재한다면
-            this.user.getBoardList().remove(this); // 관계를 끊는다.
-        }
+//        if (this.user != null) { // 기존에 이미 존재한다면
+//            this.user.getBoardList().remove(this); // 관계를 끊는다.
+//        }
+
         this.user = user;
         user.getBoardList().add(this);
     }
@@ -70,6 +71,7 @@ public class Board extends Timestamped {
     @Builder
     public Board(String username, String imageUrl, String grid, String content,
                  int likeCount){
+
         Assert.notNull(username,"@@@username must be not null@@@");     //illegalArgumentException 다른 방식으로 쓰는법
         Assert.notNull(grid,"@@@grid must be not null@@@");
         Assert.notNull(content,"@@@content must be not null@@@");

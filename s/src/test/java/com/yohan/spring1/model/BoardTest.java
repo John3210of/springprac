@@ -1,24 +1,49 @@
 package com.yohan.spring1.model;
 
 import com.yohan.spring1.repository.BoardRepository;
-import org.junit.After;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class BoardTest {
+@Transactional
+public class BoardTest {
+
+    @Autowired
     BoardRepository boardRepository;
 
-    @After      //테스트 후 초기화 하기.
-    public void clear(){
-        boardRepository.deleteAll();
-    }
-
     @Test
-    public void 게시글_저장하기(){
+    public void boardTest(){
+        //given
+        String username= "username4";
+        String imageUrl="링크";
+        String grid="그리드";
+        String content="내용";
+        Long id = 10L;
+
+        //when
+        Board board = Board.builder()
+                .username(username)
+                .imageUrl(imageUrl)
+                .grid(grid)
+                .content(content)
+                .build();
+
+        //then
+        assertThat(board.getId()).isNotEqualTo(username);
+        assertEquals(username,board.getUsername());
+        assertEquals(imageUrl,board.getImageUrl());
 
     }
 
 }
+
+
+//    @BeforeEach
+//    void sample(){
+//
+//    }
