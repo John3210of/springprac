@@ -56,6 +56,7 @@ public class BoardService {
                     .build();
             boardResponseDtoList.add(boardResponseDto);
         }
+
         JSONObject obj = new JSONObject();
         obj.put("result", "success");
         obj.put("msg", "전체 게시글 조회");
@@ -68,29 +69,23 @@ public class BoardService {
     @Transactional  //글작성
     public String Save1(BoardRequestDto boardRequestDto) {
         JSONObject obj = new JSONObject();
-        if (false) {
-            //여기서 조건에 헤즈롤 갈겨
-            obj.put("result", "False");
-            obj.put("msg", "로그인이 필요합니다.");
-            return (obj.toString());
-        } else {
-            User user = userRepository.findUserByUsername(boardRequestDto.getUsername());
-//            Board board = new Board(boardRequestDto);
-            Board board = Board.builder()
-                    .username(boardRequestDto.getUsername())
-                    .imageUrl((boardRequestDto.getImageUrl()))
-                    .grid(boardRequestDto.getGrid())
-                    .content(boardRequestDto.getContent())
-                    .build();
-            board.setUser(user);
-            boardRepository.save(board);
-            Long boardid = board.getId();
-            obj.put("result", "success");
-            obj.put("msg", "응애 만들어줘");
-            obj.put("boardId", boardid);
-            return obj.toString();
-        }
+
+        User user = userRepository.findUserByUsername(boardRequestDto.getUsername());
+        Board board = Board.builder()
+                .username(boardRequestDto.getUsername())
+                .imageUrl((boardRequestDto.getImageUrl()))
+                .grid(boardRequestDto.getGrid())
+                .content(boardRequestDto.getContent())
+                .build();
+        board.setUser(user);
+        boardRepository.save(board);
+        Long boardid = board.getId();
+        obj.put("result", "success");
+        obj.put("msg", "응애 만들어줘");
+        obj.put("boardId", boardid);
+        return obj.toString();
     }
+
 
     public String brdDetail(Long id) {  //상세페이지
         Board board = boardRepository.findById(id).orElseThrow(

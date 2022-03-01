@@ -20,7 +20,6 @@ import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
-
 public class UserService {
 
     private final UserRepository userRepository;
@@ -65,6 +64,10 @@ public class UserService {
             obj.put("msg", "중복된 사용자 닉네임이 존재합니다.");
             return obj.toString();
         }
+
+        // 비밀번호 암호화
+//        String password = passwordEncoder.encode(signupRequestDto.getPassword());
+
         // 유저 생성
         User user = User.builder()
                 .email(signupRequestDto.getEmail())
@@ -74,8 +77,6 @@ public class UserService {
                 .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
                 .build();
 
-        // 비밀번호 암호화
-//        String password = passwordEncoder.encode(signupRequestDto.getPassword());
         // 유저 저장하기
         userRepository.save(user);
         obj.put("result", "success");
@@ -87,12 +88,6 @@ public class UserService {
     @Transactional
     public String loginChk(LoginDto loginDto) {
         JSONObject obj = new JSONObject();
-
-        if (false) {
-            obj.put("result", "False");
-            obj.put("msg", "이미 로그인 되어 있습니다.");
-            return obj.toString();
-        }
 
         String email = loginDto.getEmail();
         String password = loginDto.getPassword();
@@ -109,7 +104,7 @@ public class UserService {
             obj.put("result", "True");
             obj.put("msg", "로그인에 성공했습니다.");
             JSONObject dto = new JSONObject(loginResponse2Dto);
-            obj.put("userData", dto); //얘도 어펜드로 넣어야됨
+            obj.put("userData", dto);
             return obj.toString();
         } else {
             obj.put("result", "False");
