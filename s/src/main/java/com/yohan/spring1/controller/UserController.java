@@ -25,6 +25,5 @@ public class UserController {
     @PostMapping("/api/login")
     public String login(@RequestBody LoginDto loginDto) {
         return userService.loginChk(loginDto);
-
     }
 }

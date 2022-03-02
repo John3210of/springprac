@@ -1,7 +1,6 @@
 package com.yohan.spring1.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.yohan.spring1.dto.SignupRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 @Builder
 @Entity
 public class User extends Timestamped implements UserDetails {
-    //id , email , nickname , 시간들
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id //pk값으로 쓰겠다
     @Column(name = "userid")

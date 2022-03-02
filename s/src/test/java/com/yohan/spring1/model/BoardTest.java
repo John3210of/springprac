@@ -42,8 +42,3 @@ public class BoardTest {
 
 }
 
-
-//    @BeforeEach
-//    void sample(){
-//
-//    }

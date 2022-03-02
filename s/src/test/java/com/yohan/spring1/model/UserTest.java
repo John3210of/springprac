@@ -19,7 +19,7 @@ public class UserTest {
     }
 
     //when
-    User user = User.builder().build();
+
 
     //then
 

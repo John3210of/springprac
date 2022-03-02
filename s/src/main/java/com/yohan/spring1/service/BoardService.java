@@ -12,6 +12,7 @@ import com.yohan.spring1.repository.LikesRepository;
 import com.yohan.spring1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,7 @@ public class BoardService {
     private final LikesRepository likesRepository;
 
     // 전체 글 조회
+    @Cacheable("board")
     public String showall() {
         List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
 
