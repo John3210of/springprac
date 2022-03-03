@@ -12,9 +12,10 @@
 
 -완벽한 방법은 아니지만 ngrinder를 통해서 스트레스 테스트를 해 보았습니다.
 
+![query](https://user-images.githubusercontent.com/94155128/156542979-50f075c2-cac3-4242-935b-7abdf9dfd9e9.png)
+
 ![time](https://user-images.githubusercontent.com/94155128/156542849-82766f24-c437-4b93-86a1-52f9cc8f94b5.png)
 
-![query](https://user-images.githubusercontent.com/94155128/156542979-50f075c2-cac3-4242-935b-7abdf9dfd9e9.png)
 
 전체 게시글 조회에 대해 간단하게 캐싱 어노테이션을 이용하여 구현 해 보았습니다. 캐싱을 안할때는 쿼리문을 계속해서 서버에 요청하므로 TTFB의 차이가
 
