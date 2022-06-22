@@ -1,4 +1,7 @@
 <h2>spring prac</h2>
 
-myblog => 1주차 
-s=>2~3주차 
+## [프로젝트 magazine](/s)
+
+## [프로젝트 myblog](/myblog)
+
+
