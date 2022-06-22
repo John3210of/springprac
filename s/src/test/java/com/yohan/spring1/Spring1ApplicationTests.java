@@ -5,10 +5,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class Spring1ApplicationTests {
-
     @Test
     void contextLoads() {
         System.out.println("??머임??");
     }
-
 }

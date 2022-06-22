@@ -32,10 +32,9 @@ public class BoardService {
     private final LikesRepository likesRepository;
 
     // 전체 글 조회
-    @Cacheable("board")
+    @Cacheable("board")     //캐싱적용
     public String showall() {
         List<Board> boardList = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
-
         List<BoardResponseDto> boardResponseDtoList = new ArrayList<>();
         for (Board board : boardList) {
 

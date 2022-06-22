@@ -44,7 +44,7 @@ public class Board extends Timestamped {
 
     @ManyToOne
     @JoinColumn(name = "userid",nullable = false)
-    @JsonManagedReference       //순환참조방지. 부모클래스
+    @JsonManagedReference  //순환참조방지. 부모클래스
     private User user;
 
     public void plusLikeCount(){ this.likeCount += 1; }
@@ -56,7 +56,6 @@ public class Board extends Timestamped {
 //        if (this.user != null) { // 기존에 이미 존재한다면
 //            this.user.getBoardList().remove(this); // 관계를 끊는다.
 //        }
-
         this.user = user;
         user.getBoardList().add(this);
     }
